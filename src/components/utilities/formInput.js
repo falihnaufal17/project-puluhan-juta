@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, Animated } from 'react-native';
+import { View, TextInput, Animated, Text } from 'react-native';
 
 class FormInput extends Component {
     state = {
@@ -23,18 +23,19 @@ class FormInput extends Component {
             this._animatedIsFocused,
             {
                 toValue: (this.state.isFocused || this.props.value !== '') ? 1 : 0,
-                duration: 200
+                duration: 200,
+                useNativeDriver: false
             }).start()
     }
 
     render() {
-        const { style, label, value, returnKeyType, onChangeText, type } = this.props;
+        const { style, label, value, returnKeyType, onChangeText, type, name } = this.props;
         const labelStyle = {
             position: 'absolute',
-            left: 10,
+            left: '10%',
             top: this._animatedIsFocused.interpolate({
                 inputRange: [0, 1],
-                outputRange: [10, -10]
+                outputRange: [15, -10]
             }),
             fontSize: this._animatedIsFocused.interpolate({
                 inputRange: [0, 1],
@@ -42,7 +43,7 @@ class FormInput extends Component {
             }),
             color: this._animatedIsFocused.interpolate({
                 inputRange: [0, 1],
-                outputRange: ['#aaa', '#000']
+                outputRange: ['#aaa', 'blue']
             }),
             backgroundColor: '#f2f2f2',
             zIndex: this._animatedIsFocused.interpolate({
@@ -50,6 +51,12 @@ class FormInput extends Component {
                 outputRange: [0, 1]
             }),
         }
+
+        style.formInput = {
+            ...style.formInput,
+            borderColor: this.state.isFocused ? 'blue' : '#aaa'
+        }
+
         return (
             <View style={style.formGroup}>
                 <Animated.Text style={labelStyle}>{label}</Animated.Text>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import FormInput from './utilities/formInput';
 import Button from './utilities/button';
 
@@ -27,43 +27,48 @@ const Home = props => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.jumbotron}>Coffee Chat</Text>
-            <FormInput
-                label="Please Insert Your Username"
-                style={styles}
-                value={username}
-                returnKeyType="next"
-                onChangeText={(val) => setUsername(val)}
-                type={'username'}
-            />
-            <FormInput
-                label="Please Insert Your Password"
-                style={styles}
-                value={password}
-                returnKeyType="next"
-                onChangeText={(val) => setPassword(val)}
-                type="password"
-            />
-            <View style={styles.horizontalDisplay}>
-                <Button
-                    title="Sign In"
-                    onPress={login}
+        <SafeAreaView style={{ flex: 1 }}>
+            <ScrollView contentContainerStyle={styles.container}>
+                <Text style={styles.jumbotron}>Coffee Chat</Text>
+                <FormInput
+                    label="Please Insert Your Username"
                     style={styles}
-                /><Button
-                    title="Sign Up"
-                    onPress={signUp}
-                    style={styles}
+                    value={username}
+                    returnKeyType="next"
+                    onChangeText={(val) => setUsername(val)}
+                    type={'username'}
+                    name="username"
                 />
-            </View>
-        </View>
+                <FormInput
+                    label="Please Insert Your Password"
+                    style={styles}
+                    value={password}
+                    returnKeyType="next"
+                    onChangeText={(val) => setPassword(val)}
+                    type="password"
+                    name="password"
+                />
+                <View style={styles.horizontalDisplay}>
+                    <Button
+                        title="Sign In"
+                        onPress={login}
+                        style={styles}
+                    /><Button
+                        title="Sign Up"
+                        onPress={signUp}
+                        style={styles}
+                    />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        margin: 22
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     jumbotron: {
         fontSize: 24,
@@ -71,19 +76,21 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     btnPrimary: {
-        borderRadius: 10,
         backgroundColor: 'blue',
-        elevation: 6,
-        width: 100,
-        height: 30,
+        elevation: 3,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 6,
         justifyContent: 'center',
         marginBottom: 22,
         alignSelf: 'center'
     },
     txtWhite: {
         color: '#fff',
-        fontSize: 16,
-        textAlign: 'center'
+        textAlign: 'center',
+        letterSpacing: 2,
+        textTransform: 'uppercase',
+        fontWeight: '700'
     },
     label: {
         fontSize: 14,
@@ -91,18 +98,24 @@ const styles = StyleSheet.create({
     },
     formGroup: {
         width: '100%',
-        marginBottom: 14
+        marginBottom: 22
     },
     formInput: {
-        borderColor: 'blue',
+        borderColor: '#aaa',
         borderWidth: 0.9,
-        paddingHorizontal: 12,
-        height: 40,
-        borderRadius: 5,
+        paddingHorizontal: 15,
+        marginHorizontal: 22,
+        borderRadius: 5
     },
     horizontalDisplay: {
         flexDirection: 'row',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        alignSelf: 'stretch'
+    },
+    textValidation: {
+        fontSize: 12,
+        marginTop: 5,
+        marginLeft: 5
     }
 })
 

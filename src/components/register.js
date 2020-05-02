@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import FormInput from './utilities/formInput';
 import Button from './utilities/button';
 
@@ -34,8 +34,8 @@ const Register = props => {
     }
 
     return (
-        <ScrollView>
-            <View style={styles.container}>
+        <SafeAreaView style={{ flex: 1 }}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.jumbotron}>Coffee Chat</Text>
                 <FormInput
                     label="Please Insert Your Name"
@@ -76,7 +76,7 @@ const Register = props => {
                     onChangeText={(val) => setConfirmPassword(val)}
                     type="password"
                 />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                <View style={styles.horizontalDisplay}>
                     <Button
                         title="Sign Up"
                         onPress={signUp}
@@ -84,18 +84,19 @@ const Register = props => {
                     />
                     <View>
                         <Text>Have account?</Text>
-                        <TouchableOpacity onPress={goBack}><Text> go sign in!</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={goBack}><Text style={{ textAlign: 'center' }}> Go sign in!</Text></TouchableOpacity>
                     </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        margin: 22
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     jumbotron: {
         fontSize: 24,
@@ -103,19 +104,21 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     btnPrimary: {
-        borderRadius: 10,
         backgroundColor: 'blue',
-        elevation: 6,
-        width: 100,
-        height: 30,
+        elevation: 3,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 6,
         justifyContent: 'center',
         marginBottom: 22,
         alignSelf: 'center'
     },
     txtWhite: {
         color: '#fff',
-        fontSize: 16,
-        textAlign: 'center'
+        textAlign: 'center',
+        letterSpacing: 2,
+        textTransform: 'uppercase',
+        fontWeight: '700'
     },
     label: {
         fontSize: 14,
@@ -123,15 +126,25 @@ const styles = StyleSheet.create({
     },
     formGroup: {
         width: '100%',
-        marginBottom: 14
+        marginBottom: 22
     },
     formInput: {
-        borderColor: 'blue',
+        borderColor: '#aaa',
         borderWidth: 0.9,
-        paddingHorizontal: 12,
-        height: 40,
-        borderRadius: 5,
+        paddingHorizontal: 15,
+        marginHorizontal: 22,
+        borderRadius: 5
     },
+    horizontalDisplay: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignSelf: 'stretch'
+    },
+    textValidation: {
+        fontSize: 12,
+        marginTop: 5,
+        marginLeft: 5
+    }
 })
 
 export default Register;
