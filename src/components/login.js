@@ -1,36 +1,29 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import FormInput from './utilities/formInput';
 import Button from './utilities/button';
 
-const Register = props => {
-    const [name, setName] = useState('')
-    const [phone, setPhone] = useState('')
+const Login = props => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
 
-    const signUp = () => {
+    const login = () => {
         const formData = {
-            name,
-            phone,
             username,
             password
         }
-        if (!name || !phone || !username || !password || !confirmPassword) {
-            alert("Please fill the form correctly!")
-        } else {
+
+        if (username !== '' && password !== '') {
             props.navigation.navigate('Profile', formData)
-            setName('')
-            setPhone('')
-            setUsername('')
             setPassword('')
-            setConfirmPassword('')
+            setUsername('')
+        } else {
+            alert("Please fill data correctly!")
         }
     }
 
-    const goBack = () => {
-        props.navigation.goBack()
+    const signUp = () => {
+        props.navigation.navigate('Register')
     }
 
     return (
@@ -38,27 +31,13 @@ const Register = props => {
             <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.jumbotron}>Coffee Chat</Text>
                 <FormInput
-                    label="Please Insert Your Name"
-                    style={styles}
-                    value={name}
-                    returnKeyType="next"
-                    onChangeText={(val) => setName(val)}
-                />
-                <FormInput
-                    label="Please Insert Your Phone Number"
-                    style={styles}
-                    value={phone}
-                    returnKeyType="next"
-                    onChangeText={(val) => setPhone(val)}
-                    type="number"
-                />
-                <FormInput
                     label="Please Insert Your Username"
                     style={styles}
                     value={username}
                     returnKeyType="next"
                     onChangeText={(val) => setUsername(val)}
                     type={'username'}
+                    name="username"
                 />
                 <FormInput
                     label="Please Insert Your Password"
@@ -67,25 +46,18 @@ const Register = props => {
                     returnKeyType="next"
                     onChangeText={(val) => setPassword(val)}
                     type="password"
-                />
-                <FormInput
-                    label="Please Insert Your Confirm Password"
-                    style={styles}
-                    value={confirmPassword}
-                    returnKeyType="done"
-                    onChangeText={(val) => setConfirmPassword(val)}
-                    type="password"
+                    name="password"
                 />
                 <View style={styles.horizontalDisplay}>
                     <Button
+                        title="Sign In"
+                        onPress={login}
+                        style={styles}
+                    /><Button
                         title="Sign Up"
                         onPress={signUp}
                         style={styles}
                     />
-                    <View>
-                        <Text>Have account?</Text>
-                        <TouchableOpacity onPress={goBack}><Text style={{ textAlign: 'center' }}> Go sign in!</Text></TouchableOpacity>
-                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -120,10 +92,6 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         fontWeight: '700'
     },
-    label: {
-        fontSize: 14,
-        marginBottom: 5
-    },
     formGroup: {
         width: '100%',
         marginBottom: 22
@@ -147,4 +115,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Register;
+export default Login;
