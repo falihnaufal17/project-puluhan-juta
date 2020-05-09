@@ -6,7 +6,7 @@ class FormInput extends Component {
         isFocused: false
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this._animatedIsFocused = new Animated.Value(this.props.value === '' ? 0 : 1);
     }
 
@@ -35,7 +35,7 @@ class FormInput extends Component {
             left: '10%',
             top: this._animatedIsFocused.interpolate({
                 inputRange: [0, 1],
-                outputRange: [15, -10]
+                outputRange: [15, -9]
             }),
             fontSize: this._animatedIsFocused.interpolate({
                 inputRange: [0, 1],
