@@ -1,15 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
 
 const Splash = props => {
-    useEffect(() => {
-        setTimeout(() => {
-            props.navigation.navigate('Login')
-        }, 1500)
-    }, [])
     return (
         <View style={styles.container}>
-            <ActivityIndicator />
+            <ActivityIndicator size="large" color="brown" style={{ marginBottom: 20 }} />
             <Text>Loading...</Text>
         </View>
     )

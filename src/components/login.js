@@ -2,19 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import FormInput from './utilities/formInput';
 import Button from './utilities/button';
+import { login } from '../publics/redux/actions/users';
+import { connect } from 'react-redux';
 
 const Login = props => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const login = () => {
+    const submit = () => {
         const formData = {
             username,
             password
         }
 
         if (username !== '' && password !== '') {
-            props.navigation.navigate('Profile', formData)
+            props.login(formData)
             setPassword('')
             setUsername('')
         } else {
@@ -51,12 +53,14 @@ const Login = props => {
                 <View style={styles.horizontalDisplay}>
                     <Button
                         title="Sign In"
-                        onPress={login}
-                        style={styles}
+                        onPress={submit}
+                        styleButton={styles.btnSecondary}
+                        styleLabel={styles.txtWhite}
                     /><Button
                         title="Sign Up"
                         onPress={signUp}
-                        style={styles}
+                        styleButton={styles.btnPrimary}
+                        styleLabel={styles.txtWhite}
                     />
                 </View>
             </ScrollView>
@@ -74,6 +78,16 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginBottom: 22,
         textAlign: 'center'
+    },
+    btnSecondary: {
+        backgroundColor: '#000',
+        elevation: 3,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 6,
+        justifyContent: 'center',
+        marginBottom: 22,
+        alignSelf: 'center'
     },
     btnPrimary: {
         backgroundColor: 'blue',
@@ -115,4 +129,12 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Login;
+const mapDispatchToProps = d => {
+    return {
+        login: (data) => {
+            d(login(data));
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login);
